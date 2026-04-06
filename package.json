@@ -1,0 +1,16 @@
+{
+  "name": "plantilla",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:sass": "sass assets/sass/main.scss assets/css/main.css --style=expanded --source-map",
+    "dev:sass": "sass --watch assets/sass/main.scss:assets/css/main.css --style=expanded --source-map"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}

@@ -1,0 +1,51 @@
+@use "sass:color";
+
+// Misc.
+	$misc: (
+		z-index-base:		10000,
+		max-features:		20,
+		max-sidebar-links:	20
+	);
+
+// Duration.
+	$duration: (
+		transition:			0.2s,
+		activation:			1s
+	);
+
+// Size.
+	$size: (
+		border-radius:		0.25em,
+		border-width:		1px,
+		element-height:		2.75em,
+		element-margin:		2em,
+		sidebar-width:		18em,
+		sidebar-height:		3.5em,	// when <=large is active
+		inner-width:		75em
+	);
+
+// Font.
+	$font: (
+		family:				('Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif),
+		family-fixed:		('Courier New', monospace),
+		weight:				normal,
+		weight-bold:		bold,
+		kerning-alt:		0.25em
+	);
+
+// Palette.
+	$palette: (
+		bg:					#fadfc0,
+		bg-alt:				color.adjust(#fadfc0, $lightness: -4%),
+		fg:					rgba(0, 0, 0, 0.72),
+		fg-bold:			#fa643f,
+		fg-light:			rgba(0, 0, 0, 0.45),
+		border:				rgba(0, 0, 0, 0.14),
+		border-bg:			rgba(0, 0, 0, 0.05),
+		accent1:			#fadfc0,
+		accent1-alt:		color.adjust(#fadfc0, $lightness: -3%),
+		accent2:			#fadfc0,
+		accent2-alt:		color.adjust(#fadfc0, $lightness: -3%),
+		accent3:			#fadfc0,
+		accent3-alt:		color.adjust(#fadfc0, $lightness: -3%)
+	);
