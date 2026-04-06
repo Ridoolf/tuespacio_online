@@ -1563,6 +1563,31 @@ button.whatsapp-cta:active,
   -ms-transform: translateY(0);
   transform: translateY(0);
 }
+input[type=submit].intro-cta,
+input[type=reset].intro-cta,
+input[type=button].intro-cta,
+button.intro-cta,
+.button.intro-cta {
+  background: rgba(250, 100, 63, 0.1);
+  border-color: rgba(250, 100, 63, 0.35) !important;
+  color: #fa643f !important;
+  font-size: 0.68em;
+  letter-spacing: 0.16em;
+  box-shadow: 0 0.2em 0.55em rgba(250, 100, 63, 0.14);
+  -moz-transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  -ms-transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+input[type=submit].intro-cta:hover,
+input[type=reset].intro-cta:hover,
+input[type=button].intro-cta:hover,
+button.intro-cta:hover,
+.button.intro-cta:hover {
+  background: rgba(250, 100, 63, 0.16);
+  border-color: rgba(250, 100, 63, 0.55) !important;
+  box-shadow: 0 0.35em 0.8em rgba(250, 100, 63, 0.2);
+}
 input[type=submit].disabled, input[type=submit]:disabled,
 input[type=reset].disabled,
 input[type=reset]:disabled,
@@ -2548,6 +2573,14 @@ body.is-ie .spotlights > section {
   transition: opacity 1s ease, transform 1s ease;
   opacity: 1;
 }
+.spotlights > section > .content > .inner h4 {
+  color: rgba(0, 0, 0, 0.82);
+  font-size: 1.15em;
+  font-weight: bold;
+  line-height: 1.45;
+  margin-top: 0.6em;
+  margin-bottom: 0;
+}
 .spotlights > section:nth-child(1) {
   background-color: rgba(0, 0, 0, 0.03);
 }
@@ -2597,6 +2630,9 @@ body.is-ie .spotlights > section {
   }
   .spotlights > section > .content {
     padding: 3em 2em 1em 2em;
+  }
+  .spotlights > section > .content > .inner h4 {
+    font-size: 1.05em;
   }
 }
 

@@ -51,6 +51,15 @@
 						'transform #{_duration(activation)} ease'
 					));
 					opacity: 1;
+
+					h4 {
+						color: rgba(0, 0, 0, 0.82);
+						font-size: 1.15em;
+						font-weight: _font(weight-bold);
+						line-height: 1.45;
+						margin-top: 0.6em;
+						margin-bottom: 0;
+					}
 				}
 			}
 
@@ -117,6 +126,12 @@
 
 				> .content {
 					@include padding(3em, 2em);
+
+					> .inner {
+						h4 {
+							font-size: 1.05em;
+						}
+					}
 				}
 			}
 		}

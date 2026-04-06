@@ -105,6 +105,26 @@
 			}
 		}
 
+		&.intro-cta {
+			background: rgba(250, 100, 63, 0.1);
+			border-color: rgba(250, 100, 63, 0.35) !important;
+			color: _palette(fg-bold) !important;
+			font-size: 0.68em;
+			letter-spacing: 0.16em;
+			box-shadow: 0 0.2em 0.55em rgba(250, 100, 63, 0.14);
+			@include vendor('transition', (
+				'border-color #{_duration(transition)} ease',
+				'background-color #{_duration(transition)} ease',
+				'box-shadow #{_duration(transition)} ease'
+			));
+
+			&:hover {
+				background: rgba(250, 100, 63, 0.16);
+				border-color: rgba(250, 100, 63, 0.55) !important;
+				box-shadow: 0 0.35em 0.8em rgba(250, 100, 63, 0.2);
+			}
+		}
+
 		&.disabled,
 		&:disabled {
 			cursor: default;
