@@ -1,0 +1,147 @@
+@import './variables.css';
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  transition: filter 0.3s ease;
+}
+
+body.menu-open main {
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+[id="servicios"],
+[id="proceso"],
+[id="contacto"],
+[id="paquetes"] {
+  scroll-margin-top: var(--scroll-offset);
+}
+
+.section-header {
+  margin-bottom: var(--space-lg);
+  max-width: 520px;
+}
+
+.section-eyebrow {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  font-size: var(--font-size-heading-md);
+  font-weight: 800;
+  color: var(--color-ink);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.button-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-peach-light);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.button-secondary:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.button-cta-subtle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 1rem;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: var(--font-size-small);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-primary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.button-cta-subtle:hover {
+  background-color: var(--color-primary-soft);
+  color: var(--color-peach-light);
+}
+
+.text-link {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+.text-link:hover {
+  color: var(--color-peach);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --space-section: 3.5rem;
+    --space-lg: 2rem;
+    --font-size-heading-md: 1.625rem;
+  }
+}

@@ -1,0 +1,33 @@
+.logo-text {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1;
+  text-transform: lowercase;
+  font-family: var(--font-family);
+  letter-spacing: -0.02em;
+}
+
+.logo-text-line {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.logo-text-line--bold {
+  font-weight: 800;
+}
+
+.logo-text--light .logo-text-line {
+  color: var(--color-peach-light);
+}
+
+.logo-text--light .logo-text-line--bold {
+  color: var(--color-peach);
+}
+
+.logo-text--inline {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.3em;
+  white-space: nowrap;
+}
