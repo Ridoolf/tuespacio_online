@@ -11,7 +11,7 @@ export function buildContactWhatsAppLink() {
 }
 
 export function buildPackageWhatsAppLink(packageName, price) {
-  const message = `Hola, como estas? Me interesa el paquete: "${packageName}" ${formatPrice(price)}. Muchas gracias`;
+  const message = `Hola, como estas? Me interesa el paquete: "${packageName}" ${formatPrice(price)}. ¿Podemos charlar?`;
   return buildWhatsAppLink(message);
 }
 

@@ -23,7 +23,6 @@ function Features() {
     <section className="features">
       <div className="container">
         <header className="section-header" id="servicios">
-          <span className="section-eyebrow">Lo que recibís</span>
           <h2 className="section-title">Qué incluye tu web</h2>
           <p className="section-subtitle">
             Cada proyecto se entrega con lo necesario para que tu negocio se entienda online.

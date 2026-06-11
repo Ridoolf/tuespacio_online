@@ -40,16 +40,6 @@ body.menu-open main {
   max-width: 520px;
 }
 
-.section-eyebrow {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  margin-bottom: var(--space-sm);
-}
-
 .section-title {
   font-size: var(--font-size-heading-md);
   font-weight: 800;
