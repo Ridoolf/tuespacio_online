@@ -10,10 +10,16 @@ export function buildContactWhatsAppLink() {
   return buildWhatsAppLink();
 }
 
-export function buildPackageWhatsAppLink(packageName, price) {
+export function buildPlanWhatsAppLink(planName, price) {
   const priceText = price !== null ? formatPrice(price) : 'A consultar';
-  const message = `Hola, como estas? Me interesa el paquete: "${packageName}" ${priceText}. ¿Podemos charlar?`;
+  const message = `Hola, como estas? Me interesa el paquete: "${planName}" ${priceText}. ¿Podemos charlar?`;
   return buildWhatsAppLink(message);
+}
+
+export function buildFormWhatsAppLink(name, message, phone = '') {
+  let text = `Hola, soy ${name}. ${message}`;
+  if (phone) text += `\nTel: ${phone}`;
+  return buildWhatsAppLink(text);
 }
 
 export function formatPrice(amount) {

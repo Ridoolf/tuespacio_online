@@ -1,0 +1,27 @@
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: var(--font-size-base);
+  line-height: 1.55;
+}
+
+.feature-list li svg {
+  flex-shrink: 0;
+  margin-top: 0.2em;
+  color: var(--color-accent);
+}
+
+.feature-list--compact li {
+  font-size: var(--font-size-sm);
+}
+
+.feature-list--compact li svg {
+  margin-top: 0.15em;
+}

@@ -1,24 +1,26 @@
-import Header from '../components/Header/Header';
-import Hero from '../components/Hero/Hero';
-import Features from '../components/Features/Features';
-import Packages from '../components/Packages/Packages';
-import Process from '../components/Process/Process';
-import ContactCta from '../components/ContactCta/ContactCta';
-import Footer from '../components/Footer/Footer';
+import { useEffect } from 'react';
+import HomeHero from '../components/hero/HomeHero';
+import { siteConfig } from '../config/siteConfig';
+import { usePageMeta } from '../hooks/usePageMeta';
+import './HomePage.css';
 
 function HomePage() {
+  usePageMeta({
+    title: siteConfig.seo.homeTitle,
+    description: siteConfig.seo.homeDescription,
+    path: '/',
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Features />
-        <Packages />
-        <Process />
-        <ContactCta />
+    <div className="page home-page">
+      <main id="contenido-principal">
+        <HomeHero />
       </main>
-      <Footer />
-    </>
+    </div>
   );
 }
 

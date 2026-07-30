@@ -1,0 +1,132 @@
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  isolation: isolate;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: transparent;
+  transition: background-color var(--transition);
+  z-index: -1;
+}
+
+.btn svg {
+  flex-shrink: 0;
+  transition: transform var(--transition), color var(--transition);
+}
+
+.btn:hover svg:last-child {
+  transform: translate(2px, -2px);
+}
+
+.btn:active {
+  box-shadow: inset 0 2px 8px rgba(26, 26, 26, 0.18);
+}
+
+.btn--primary {
+  background-color: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 16px rgba(232, 97, 45, 0.25);
+}
+
+.btn--primary:hover {
+  background-color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 4px 16px rgba(232, 97, 45, 0.3);
+}
+
+.btn--primary:active {
+  background-color: #b8431a;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.22);
+}
+
+.btn--outline {
+  background-color: var(--color-surface);
+  color: var(--color-accent);
+  border-color: var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.btn--outline:active {
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn--ghost:hover {
+  border-color: var(--color-text);
+  background-color: rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(26, 26, 26, 0.06);
+}
+
+.btn--ghost:active {
+  background-color: rgba(26, 26, 26, 0.06);
+  box-shadow: inset 0 2px 8px rgba(26, 26, 26, 0.1);
+}
+
+.btn--whatsapp {
+  background-color: #25d366;
+  color: #fff;
+  border-color: #25d366;
+}
+
+.btn--whatsapp:hover {
+  background-color: #1ebe57;
+  border-color: #1ebe57;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.btn--whatsapp:active {
+  background-color: #1a9e47;
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn-arrow::after {
+  content: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover svg:last-child {
+    transform: none;
+  }
+}

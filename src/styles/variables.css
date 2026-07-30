@@ -1,56 +1,55 @@
-/* --- Colores de marca — tema oscuro cálido --- */
 :root {
-  --color-primary: #E8612D;
-  --color-primary-dark: #D4562A;
-  --color-primary-soft: rgba(232, 97, 45, 0.12);
-  --color-primary-glow: rgba(232, 97, 45, 0.18);
+  --color-bg: #F2EDE6;
+  --color-bg-alt: #E8E0D6;
+  --color-surface: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-muted: #5C5C5C;
+  --color-accent: #E8612D;
+  --color-accent-dark: #C94E1F;
+  --color-accent-soft: rgba(232, 97, 45, 0.12);
+  --color-border: #D4CCC4;
 
-  --color-peach: #F5D5C8;
-  --color-peach-light: #FAEBE3;
+  --font-display: 'Bebas Neue', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
 
-  /* Fondos */
-  --color-background: #2A211C;
-  --color-surface: #342A24;
-  --color-surface-raised: #3E322B;
-
-  /* Texto */
-  --color-text: #EDE0D6;
-  --color-text-muted: #A89488;
-  --color-ink: #FAEBE3;
-
-  --color-white: #FFFFFF;
-
-  /* Bordes */
-  --color-border: #4A3D35;
-  --color-border-strong: #6B574C;
-
-  /* --- Tipografía (Nunito — igual que el logo) --- */
-  --font-family: 'Nunito', system-ui, sans-serif;
-
-  --font-size-small: 0.9375rem;
+  /* 3 tamaños: display (hero) · section (h2) · base/sm (cuerpo + UI) */
+  --font-size-display: clamp(3.25rem, 9vw, 6.5rem);
+  --font-size-section: clamp(2rem, 4vw, 2.75rem);
   --font-size-base: 1.0625rem;
-  --font-size-large: 1.25rem;
-  --font-size-heading-md: 2rem;
-  --font-size-heading-lg: clamp(2.125rem, 4.5vw, 3rem);
+  --font-size-sm: 0.8125rem;
 
-  /* --- Espaciado --- */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
-  --space-lg: 3rem;
-  --space-xl: 5rem;
-  --space-section: 5.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-section: 4rem;
 
-  /* --- Forma --- */
-  --radius-sm: 6px;
-  --radius-md: 10px;
+  --container-max: 1320px;
+  --header-height: 76px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
 
-  /* --- Layout --- */
-  --container-max: 920px;
-  --header-height: 68px;
-  --scroll-offset: calc(var(--header-height) + 1.25rem);
+  --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.04);
+  --shadow-md: 0 8px 24px rgba(26, 26, 26, 0.07);
+  --shadow-lg: 0 16px 48px rgba(26, 26, 26, 0.1);
+  --shadow-accent: 0 12px 40px rgba(232, 97, 45, 0.18);
 
-  /* --- Transiciones --- */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --motion-duration: 0.45s;
+  --motion-duration-slow: 1.15s;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-hero: cubic-bezier(0.33, 0, 0.15, 1);
+  --gradient-page: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232, 97, 45, 0.06), transparent 65%);
+  --shadow-editorial: 0 24px 48px rgba(26, 26, 26, 0.12);
+
+  --header-gutter: clamp(1rem, 2.5vw, 1.75rem);
+  --header-edge-inset: max(
+    var(--header-gutter),
+    calc((100vw - min(100vw, var(--container-max))) / 2 + var(--header-gutter))
+  );
 }

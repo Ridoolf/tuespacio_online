@@ -10,6 +10,15 @@ html {
   scroll-behavior: smooth;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -30,4 +39,9 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+input,
+textarea {
+  font-family: inherit;
 }
