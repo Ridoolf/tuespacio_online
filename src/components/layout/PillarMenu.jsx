@@ -10,14 +10,57 @@ import { buildContactWhatsAppLink } from '../../utils/whatsapp';
 import { WhatsAppIcon, InstagramIcon } from '../SocialIcons/SocialIcons';
 import './PillarMenu.css';
 
+function getHeaderHeight() {
+  const value = getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim();
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 76;
+}
+
 function getTargetRect() {
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  const width = Math.min(940, vw * 0.92);
-  const height = Math.min(720, vh * 0.82);
+  const isPhone = vw <= 767;
+  const isTablet = vw <= 1023 && !isPhone;
+  const headerHeight = getHeaderHeight();
+  const headerGap = 12;
+  const topInset = headerHeight + headerGap;
+  const bottomInset = isTablet ? 12 : 24;
+  const sideInset = isTablet ? 12 : Math.max(16, vw * 0.04);
+
+  if (isPhone) {
+    return {
+      top: headerHeight,
+      left: 0,
+      width: vw,
+      height: Math.max(0, vh - headerHeight),
+      borderRadius: 0,
+    };
+  }
+
+  if (isTablet) {
+    const width = vw - sideInset * 2;
+    const height = Math.max(0, vh - topInset - bottomInset);
+
+    return {
+      top: topInset,
+      left: sideInset,
+      width,
+      height,
+      borderRadius: 20,
+    };
+  }
+
+  let width = Math.min(940, vw - sideInset * 2);
+  let height = Math.min(720, vh * 0.82, vh - topInset - bottomInset);
+  let top = Math.max(topInset, (vh - height) / 2);
+
+  if (top + height > vh - bottomInset) {
+    height = Math.max(0, vh - topInset - bottomInset);
+    top = topInset;
+  }
 
   return {
-    top: (vh - height) / 2,
+    top,
     left: (vw - width) / 2,
     width,
     height,
@@ -164,18 +207,20 @@ function PillarMenu() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="pillar-menu-social"
+                            aria-label="Instagram"
                           >
                             <InstagramIcon />
-                            Instagram
+                            <span className="pillar-menu-social-label">Instagram</span>
                           </a>
                           <a
                             href={whatsappLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="pillar-menu-social"
+                            aria-label="WhatsApp"
                           >
                             <WhatsAppIcon />
-                            WhatsApp
+                            <span className="pillar-menu-social-label">WhatsApp</span>
                           </a>
                         </div>
                         <p className="pillar-menu-side-text">
