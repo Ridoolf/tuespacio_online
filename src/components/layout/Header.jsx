@@ -5,8 +5,8 @@ import './Header.css';
 
 function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const { isOpen, isPillarMode, toggleMenu } = useMenu();
-  const hideNavbarToggle = isPillarMode && isOpen;
+  const { isOpen, toggleMenu } = useMenu();
+  const hideNavbarToggle = isOpen;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -23,7 +23,7 @@ function Header() {
         <Logo />
         <button
           type="button"
-          className={`header-menu-toggle ${isOpen && !isPillarMode ? 'header-menu-toggle--open' : ''} ${hideNavbarToggle ? 'header-menu-toggle--hidden' : ''}`}
+          className={`header-menu-toggle ${hideNavbarToggle ? 'header-menu-toggle--hidden' : ''}`}
           aria-expanded={isOpen}
           aria-controls="site-menu"
           aria-hidden={hideNavbarToggle}

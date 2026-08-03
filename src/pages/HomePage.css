@@ -753,22 +753,22 @@
 
 @media (max-width: 767px) {
   .home-hero {
-    --hero-cta-offset-y: min(17vh, 140px);
+    --hero-cta-offset-y: calc(min(17vh, 140px) + 14px);
   }
 
   .home-hero-composition {
-    --hero-bar-width: clamp(68px, 18vw, 96px);
+    --hero-bar-width: clamp(72px, 19vw, 102px);
     --hero-pillar-height: min(58vh, 480px);
     --hero-title-lift: min(20vh, 165px);
   }
 
   .home-hero-brand {
-    font-size: clamp(2rem, 10vw, 3.25rem);
+    font-size: clamp(2.35rem, 11vw, 3.75rem);
     white-space: normal;
   }
 
   .home-laptop {
-    width: clamp(180px, 44vw, 220px);
+    width: clamp(220px, 52vw, 270px);
   }
 
   .home-laptop-callout {
@@ -812,7 +812,7 @@
   }
 }
 
-@media (max-height: 720px) {
+@media (max-height: 720px) and (min-width: 768px) {
   .home-hero {
     --hero-cta-offset-y: min(15vh, 120px);
   }
@@ -832,6 +832,12 @@
 
   .home-laptop {
     width: clamp(160px, 24vw, 220px);
+  }
+}
+
+@media (max-height: 720px) and (max-width: 767px) {
+  .home-hero-kicker {
+    display: none;
   }
 }
 

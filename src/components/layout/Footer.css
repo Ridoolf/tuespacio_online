@@ -63,7 +63,7 @@
   font-weight: 800;
 }
 
-.footer-bottom {
+.footer .container.footer-bottom {
   display: flex;
   justify-content: space-between;
   gap: var(--space-sm);
@@ -92,7 +92,8 @@
     grid-template-columns: 1fr;
   }
 
-  .footer-bottom {
+  .footer .container.footer-bottom {
     flex-direction: column;
+    margin-top: var(--space-md);
   }
 }

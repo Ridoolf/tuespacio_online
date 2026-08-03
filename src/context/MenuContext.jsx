@@ -7,15 +7,9 @@ import {
   useState,
 } from 'react';
 import { useLocation } from 'react-router-dom';
+import { MENU_TIMING, waitMenuAnimation } from '../utils/menuGsap';
 
 const MenuContext = createContext(null);
-
-const TIMING = {
-  forward: 400,
-  expand: 750,
-  open: 350,
-  contentOut: 200,
-};
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -28,7 +22,6 @@ export function MenuProvider({ children }) {
   const isHome = location.pathname === '/';
 
   const [phase, setPhase] = useState('closed');
-  const [simpleOpen, setSimpleOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -46,7 +39,6 @@ export function MenuProvider({ children }) {
 
   const resetMenu = useCallback(() => {
     setPhase('closed');
-    setSimpleOpen(false);
     setAnchorRect(null);
     setIsClosing(false);
     document.body.classList.remove('menu-open');
@@ -57,17 +49,17 @@ export function MenuProvider({ children }) {
     resetMenu();
   }, [location.pathname, resetMenu]);
 
-  const isOpen = isHome ? phase !== 'closed' : simpleOpen;
+  const isOpen = phase !== 'closed';
 
   const openMenu = useCallback(async () => {
+    if (phase !== 'closed') return;
+
+    const seq = sequenceRef.current + 1;
+    sequenceRef.current = seq;
+    setIsClosing(false);
+    document.body.classList.add('menu-open');
+
     if (isHome) {
-      if (phase !== 'closed') return;
-
-      const seq = sequenceRef.current + 1;
-      sequenceRef.current = seq;
-      setIsClosing(false);
-      document.body.classList.add('menu-open');
-
       if (reducedMotionRef.current) {
         setAnchorRect(pillarRef.current?.getBoundingClientRect() ?? null);
         setPhase('open');
@@ -75,63 +67,64 @@ export function MenuProvider({ children }) {
       }
 
       setPhase('forward');
-      await sleep(TIMING.forward);
+      await sleep(MENU_TIMING.forward);
       if (sequenceRef.current !== seq) return;
 
       setAnchorRect(pillarRef.current?.getBoundingClientRect() ?? null);
       setPhase('expand');
-      await sleep(TIMING.expand);
+      await waitMenuAnimation('expand');
       if (sequenceRef.current !== seq) return;
 
       setPhase('open');
-    } else {
-      setSimpleOpen(true);
-      document.body.classList.add('menu-open');
+      await waitMenuAnimation('contentIn');
+      return;
     }
+
+    setPhase('open');
   }, [isHome, phase]);
 
   const closeMenu = useCallback(async () => {
+    if (phase === 'closed') return;
+
+    const seq = sequenceRef.current + 1;
+    sequenceRef.current = seq;
+    setIsClosing(true);
+
+    if (reducedMotionRef.current) {
+      resetMenu();
+      return;
+    }
+
     if (isHome) {
-      if (phase === 'closed') return;
-
-      const seq = sequenceRef.current + 1;
-      sequenceRef.current = seq;
-      setIsClosing(true);
-
-      if (reducedMotionRef.current) {
-        resetMenu();
-        return;
-      }
-
       if (phase === 'forward') {
-        await sleep(TIMING.forward);
+        await sleep(MENU_TIMING.forward);
         if (sequenceRef.current !== seq) return;
         resetMenu();
         return;
       }
 
-      // Fase A: fade-out de UI (phase permanece 'open')
       if (phase === 'open') {
-        await sleep(TIMING.contentOut);
+        await waitMenuAnimation('contentOut');
         if (sequenceRef.current !== seq) return;
       }
 
-      // Fase B: shrink panel vacío
       setAnchorRect(pillarRef.current?.getBoundingClientRect() ?? anchorRect);
       setPhase('expand');
-      await sleep(TIMING.expand);
+      await waitMenuAnimation('expandClose');
       if (sequenceRef.current !== seq) return;
 
-      // Fase C: vuelta al hero
       setPhase('forward');
       setAnchorRect(null);
-      await sleep(TIMING.forward);
+      await sleep(MENU_TIMING.forward);
       if (sequenceRef.current !== seq) return;
 
       resetMenu();
-    } else {
-      resetMenu();
+      return;
     }
+
+    await sleep(380);
+    if (sequenceRef.current !== seq) return;
+    resetMenu();
   }, [anchorRect, isHome, phase, resetMenu]);
 
   const toggleMenu = useCallback(() => {
@@ -159,7 +152,6 @@ export function MenuProvider({ children }) {
     isHome,
     isPillarMode: isHome,
     isClosing,
-    simpleOpen,
     registerPillarAnchor,
     openMenu,
     closeMenu,

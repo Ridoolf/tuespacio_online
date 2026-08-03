@@ -1,12 +1,20 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowUpRight } from 'lucide-react';
 import { useMenu } from '../../context/MenuContext';
 import { navLinks } from '../../config/navLinks';
 import { siteConfig } from '../../config/siteConfig';
 import { buildContactWhatsAppLink } from '../../utils/whatsapp';
+import {
+  applyPanelRect,
+  completeMenuAnimation,
+  fadeOverlay,
+  hideMenuContent,
+  killMenuTimelines,
+  morphPanel,
+  revealMenuContent,
+} from '../../utils/menuGsap';
 import { WhatsAppIcon, InstagramIcon } from '../SocialIcons/SocialIcons';
 import './PillarMenu.css';
 
@@ -78,31 +86,19 @@ function rectFromAnchor(anchor) {
   };
 }
 
-const panelEase = [0.16, 1, 0.3, 1];
-
-const contentVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.06, delayChildren: 0.08 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: panelEase } },
-};
-
 function PillarMenu() {
   const location = useLocation();
-  const { phase, anchorRect, isPillarMode, isClosing, closeMenu } = useMenu();
+  const { phase, anchorRect, isHome, isClosing, closeMenu } = useMenu();
   const whatsappLink = buildContactWhatsAppLink();
   const [targetRect, setTargetRect] = useState(getTargetRect);
   const [reducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
 
-  const panelDuration = reducedMotion ? 0 : 0.75;
+  const overlayRef = useRef(null);
+  const panelRef = useRef(null);
+  const contentRef = useRef(null);
+  const timelinesRef = useRef([]);
 
   useEffect(() => {
     const update = () => setTargetRect(getTargetRect());
@@ -111,157 +107,201 @@ function PillarMenu() {
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const showPortal = isPillarMode && (phase === 'expand' || phase === 'open');
-  const showPanelUI = phase === 'open' && !isClosing;
+  useEffect(() => {
+    return () => killMenuTimelines(...timelinesRef.current);
+  }, []);
 
-  const panelAnimate = useMemo(() => {
-    if (!anchorRect) return targetRect;
+  const showPanelHome = (phase === 'expand' || phase === 'open') && anchorRect;
+  const showPanelUI = phase === 'open';
+  const overlayVisible = phase !== 'closed' && phase !== 'forward';
 
-    if (phase === 'open') {
-      return targetRect;
+  useEffect(() => {
+    if (!overlayRef.current) return;
+
+    const tl = fadeOverlay(overlayRef.current, overlayVisible, reducedMotion);
+    timelinesRef.current.push(tl);
+
+    return () => tl.kill();
+  }, [overlayVisible, reducedMotion]);
+
+  useEffect(() => {
+    if (!showPanelHome || !panelRef.current) return;
+
+    if (phase === 'expand' && !isClosing) {
+      const fromRect = rectFromAnchor(anchorRect);
+      const tl = morphPanel(panelRef.current, fromRect, targetRect, reducedMotion);
+      timelinesRef.current.push(tl);
+
+      if (reducedMotion) {
+        completeMenuAnimation('expand');
+      } else {
+        tl.eventCallback('onComplete', () => completeMenuAnimation('expand'));
+      }
+
+      return () => tl.kill();
     }
+
+    if (phase === 'open' && !isClosing) {
+      applyPanelRect(panelRef.current, targetRect);
+    }
+
+    return undefined;
+  }, [anchorRect, isClosing, phase, reducedMotion, showPanelHome, targetRect]);
+
+  useEffect(() => {
+    if (!showPanelHome || !panelRef.current) return;
 
     if (phase === 'expand' && isClosing) {
-      return rectFromAnchor(anchorRect);
+      const toRect = rectFromAnchor(anchorRect);
+      const tl = morphPanel(panelRef.current, targetRect, toRect, reducedMotion);
+      timelinesRef.current.push(tl);
+
+      if (reducedMotion) {
+        completeMenuAnimation('expandClose');
+      } else {
+        tl.eventCallback('onComplete', () => completeMenuAnimation('expandClose'));
+      }
+
+      return () => tl.kill();
     }
 
-    if (phase === 'expand') {
-      return targetRect;
+    return undefined;
+  }, [anchorRect, isClosing, phase, reducedMotion, showPanelHome, targetRect]);
+
+  useEffect(() => {
+    if (!contentRef.current || phase !== 'open' || isClosing) return;
+
+    const tl = revealMenuContent(contentRef.current, reducedMotion);
+    timelinesRef.current.push(tl);
+
+    if (reducedMotion) {
+      completeMenuAnimation('contentIn');
+    } else {
+      tl.eventCallback('onComplete', () => completeMenuAnimation('contentIn'));
     }
 
-    return rectFromAnchor(anchorRect);
-  }, [anchorRect, isClosing, phase, targetRect]);
+    return () => tl.kill();
+  }, [isClosing, phase, reducedMotion]);
 
-  if (!isPillarMode || phase === 'closed') {
+  useEffect(() => {
+    if (!contentRef.current || !isClosing || phase !== 'open') return;
+
+    const tl = hideMenuContent(contentRef.current, reducedMotion);
+    timelinesRef.current.push(tl);
+
+    if (reducedMotion) {
+      completeMenuAnimation('contentOut');
+    } else {
+      tl.eventCallback('onComplete', () => completeMenuAnimation('contentOut'));
+    }
+
+    return () => tl.kill();
+  }, [isClosing, phase, reducedMotion]);
+
+  if (!isHome || phase === 'closed') {
     return null;
   }
 
-  const overlayVisible = phase !== 'closed' && phase !== 'forward';
-
   return createPortal(
     <>
-      <AnimatePresence>
-        {overlayVisible && (
-          <motion.button
-            type="button"
-            className="pillar-menu-overlay"
-            aria-label="Cerrar menú"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            onClick={closeMenu}
-          />
-        )}
-      </AnimatePresence>
+      <button
+        ref={overlayRef}
+        type="button"
+        className="pillar-menu-overlay"
+        aria-label="Cerrar menú"
+        style={{ opacity: 0, pointerEvents: overlayVisible ? 'auto' : 'none' }}
+        onClick={closeMenu}
+      />
 
-      <AnimatePresence>
-        {showPortal && anchorRect && (
-          <motion.div
-            id="site-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menú de navegación"
-            className="pillar-menu-panel"
-            initial={rectFromAnchor(anchorRect)}
-            animate={panelAnimate}
-            exit={rectFromAnchor(anchorRect)}
-            transition={{ duration: panelDuration, ease: panelEase }}
-          >
-            <div
-              className={`pillar-menu-panel-inner${showPanelUI ? '' : ' pillar-menu-panel-inner--hidden'}`}
-            >
-              <AnimatePresence>
-                {showPanelUI && (
-                  <motion.div
-                    className="pillar-menu-panel-content"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+      {showPanelHome && (
+        <div
+          ref={panelRef}
+          id="site-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menú de navegación"
+          className="pillar-menu-panel"
+        >
+          <div className="pillar-menu-panel-inner">
+            {showPanelUI && (
+              <div ref={contentRef} className="pillar-menu-panel-content">
+                <div className="pillar-menu-head">
+                  <span className="pillar-menu-head-label">Menú</span>
+                  <button
+                    type="button"
+                    className="pillar-menu-close"
+                    onClick={closeMenu}
+                    aria-label="Cerrar menú"
                   >
-                    <div className="pillar-menu-head">
-                      <span className="pillar-menu-head-label">Menú</span>
-                      <button
-                        type="button"
-                        className="pillar-menu-close"
-                        onClick={closeMenu}
-                        aria-label="Cerrar menú"
-                      >
-                        <span>Cerrar</span>
-                        <X size={20} strokeWidth={2.25} aria-hidden="true" />
-                      </button>
-                    </div>
+                    <span>Cerrar</span>
+                    <X size={20} strokeWidth={2.25} aria-hidden="true" />
+                  </button>
+                </div>
 
-                    <motion.div
-                      className="pillar-menu-body"
-                      variants={contentVariants}
-                      initial="hidden"
-                      animate="visible"
+                <div className="pillar-menu-body">
+                  <aside className="pillar-menu-side">
+                    <p className="pillar-menu-side-label">Seguime</p>
+                    <div className="pillar-menu-socials">
+                      <a
+                        href={siteConfig.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="pillar-menu-social"
+                        aria-label="Instagram"
+                      >
+                        <InstagramIcon />
+                        <span className="pillar-menu-social-label">Instagram</span>
+                      </a>
+                      <a
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="pillar-menu-social"
+                        aria-label="WhatsApp"
+                      >
+                        <WhatsAppIcon />
+                        <span className="pillar-menu-social-label">WhatsApp</span>
+                      </a>
+                    </div>
+                    <p className="pillar-menu-side-text">
+                      {siteConfig.tagline}. Coordinamos sin compromiso por WhatsApp.
+                    </p>
+                    <a
+                      href={whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pillar-menu-side-cta"
+                      onClick={closeMenu}
                     >
-                      <motion.aside className="pillar-menu-side" variants={itemVariants}>
-                        <p className="pillar-menu-side-label">Seguime</p>
-                        <div className="pillar-menu-socials">
-                          <a
-                            href={siteConfig.instagramUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="pillar-menu-social"
-                            aria-label="Instagram"
-                          >
-                            <InstagramIcon />
-                            <span className="pillar-menu-social-label">Instagram</span>
-                          </a>
-                          <a
-                            href={whatsappLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="pillar-menu-social"
-                            aria-label="WhatsApp"
-                          >
-                            <WhatsAppIcon />
-                            <span className="pillar-menu-social-label">WhatsApp</span>
-                          </a>
-                        </div>
-                        <p className="pillar-menu-side-text">
-                          {siteConfig.tagline}. Coordinamos sin compromiso por WhatsApp.
-                        </p>
-                        <a
-                          href={whatsappLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="pillar-menu-side-cta"
+                      Escribime
+                      <ArrowUpRight size={18} strokeWidth={2.25} aria-hidden="true" />
+                    </a>
+                  </aside>
+
+                  <nav className="pillar-menu-nav" aria-label="Navegación principal">
+                    {navLinks.map((link, index) => (
+                      <div key={link.to} className="pillar-menu-nav-item">
+                        <Link
+                          to={link.to}
+                          className={`pillar-menu-link ${location.pathname === link.to ? 'pillar-menu-link--active' : ''}`}
                           onClick={closeMenu}
                         >
-                          Escribime
-                          <ArrowUpRight size={18} strokeWidth={2.25} aria-hidden="true" />
-                        </a>
-                      </motion.aside>
-
-                      <nav className="pillar-menu-nav" aria-label="Navegación principal">
-                        {navLinks.map((link, index) => (
-                          <motion.div key={link.to} variants={itemVariants}>
-                            <Link
-                              to={link.to}
-                              className={`pillar-menu-link ${location.pathname === link.to ? 'pillar-menu-link--active' : ''}`}
-                              onClick={closeMenu}
-                            >
-                              <span className="pillar-menu-link-index">
-                                {String(index + 1).padStart(2, '0')}
-                              </span>
-                              <span className="pillar-menu-link-text">{link.label}</span>
-                            </Link>
-                          </motion.div>
-                        ))}
-                      </nav>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                          <span className="pillar-menu-link-index">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <span className="pillar-menu-link-text-wrap">
+                            <span className="pillar-menu-link-text">{link.label}</span>
+                          </span>
+                        </Link>
+                      </div>
+                    ))}
+                  </nav>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </>,
     document.body,
   );

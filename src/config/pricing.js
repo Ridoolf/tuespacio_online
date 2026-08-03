@@ -4,12 +4,11 @@ export const plans = [
     name: 'Sitio en una página',
     price: 180000,
     maintenance: 35000,
-    description: 'Hasta 5 secciones en una sola URL con scroll.',
+    description: 'Tu negocio en una sola URL, con scroll entre secciones.',
     highlights: [
-      'Formulario de contacto',
-      'Botón de WhatsApp',
-      'SEO base y responsive',
-      'Entrega lista para compartir',
+      'Hasta 5 secciones',
+      'Formulario y WhatsApp',
+      'Lista para compartir el día que entrego',
     ],
   },
   {
@@ -18,11 +17,11 @@ export const plans = [
     price: 225000,
     maintenance: 35000,
     featured: true,
-    description: 'Hasta 5 páginas con URL propia cada una.',
+    description: 'Varias páginas con URL propia, ideal si tenés más que contar.',
     highlights: [
-      'Todo lo del plan anterior',
-      'Hasta 5 URLs separadas',
-      'Ideal para negocios con más contenido',
+      'Hasta 5 páginas separadas',
+      'Todo lo del plan de una página',
+      'Mejor si tenés servicios o categorías distintas',
     ],
   },
   {
@@ -31,11 +30,11 @@ export const plans = [
     price: null,
     priceLabel: 'Desde $400.000',
     maintenance: 50000,
-    description: 'Alcance 100% personalizado según tu negocio.',
+    description: 'Cuando necesitás algo que no entra en un plan estándar.',
     highlights: [
-      'Funcionalidades a medida',
-      'Propuesta según alcance',
-      'Ideal para proyectos complejos',
+      'Alcance a tu medida',
+      'Propuesta según lo que necesites',
+      'Para proyectos con más complejidad',
     ],
   },
 ];
@@ -44,22 +43,22 @@ export const supportPlan = {
   title: 'Plan de acompañamiento',
   duration: '6 meses',
   summary:
-    'El primer mes está bonificado. Luego son 5 meses de seguimiento para que tu web quede bien indexada y funcionando.',
+    'Después de publicar no te dejo solo: el primer mes va bonificado y seguimos 5 meses más para que todo funcione bien.',
   includes: [
-    'Corrección de errores y ajustes básicos de contenido (textos, precios, horarios)',
-    'Seguimiento con Google Search Console y Google Analytics',
-    'Soporte por WhatsApp durante el período',
-    'No incluye secciones o páginas nuevas',
+    'Ajustes de textos, precios u horarios sin drama',
+    'Seguimiento con Google Search Console y Analytics',
+    'Soporte por WhatsApp mientras dure el plan',
+    'No incluye páginas o secciones nuevas',
   ],
   referral:
-    'Si recomendás a alguien que contrate dentro de esos 6 meses, un mes del plan se bonifica.',
+    'Si recomendás a alguien que contrate dentro de esos 6 meses, te bonifico un mes del plan.',
   after:
-    'Al finalizar los 6 meses, podés continuar con el mantenimiento y reportes mensuales de forma opcional.',
+    'Cuando terminan los 6 meses, podés seguir con mantenimiento y reportes mensuales si te sirve.',
 };
 
 export const includedInAll = [
   'Formulario de contacto',
   'Botón de WhatsApp',
   'SEO base',
-  'Adaptado a celular, tablet y computadora',
+  'Se ve bien en celular, tablet y computadora',
 ];

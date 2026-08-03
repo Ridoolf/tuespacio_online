@@ -4,9 +4,9 @@
   z-index: 180;
   border: none;
   padding: 0;
-  background: rgba(26, 26, 26, 0.42);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(26, 26, 26, 0.48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
 }
 
@@ -24,7 +24,6 @@
   height: 100%;
   padding: clamp(1.25rem, 3vw, 2rem);
   color: var(--color-bg);
-  transition: opacity 0.2s ease;
 }
 
 .pillar-menu-panel-inner--hidden {
@@ -118,6 +117,7 @@
   gap: 0.15rem;
   justify-content: center;
   flex: 0 0 auto;
+  padding-inline: 0.35rem;
 }
 
 .pillar-menu-link {
@@ -127,13 +127,24 @@
   padding: 0.55rem 0;
   text-decoration: none;
   color: rgba(242, 237, 230, 0.82);
-  transition: color var(--transition), transform var(--transition);
+  transition: color var(--transition);
 }
 
-.pillar-menu-link:hover,
-.pillar-menu-link--active {
-  color: var(--color-bg);
-  transform: translateX(-4px);
+.pillar-menu-link-text-wrap {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+  padding-left: 0.06em;
+  padding-bottom: 0.08em;
+}
+
+.pillar-menu-link-text {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .pillar-menu-link-index {
@@ -142,14 +153,12 @@
   letter-spacing: 0.08em;
   opacity: 0.75;
   min-width: 1.75rem;
+  will-change: transform, opacity;
 }
 
-.pillar-menu-link-text {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 0.95;
+.pillar-menu-link:hover,
+.pillar-menu-link--active {
+  color: var(--color-bg);
 }
 
 .pillar-menu-side-label {
@@ -315,19 +324,9 @@
   .pillar-menu-link-text {
     font-size: clamp(1.5rem, 7vw, 2rem);
   }
-
-  .pillar-menu-link:hover,
-  .pillar-menu-link--active {
-    transform: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pillar-menu-link:hover,
-  .pillar-menu-link--active {
-    transform: none;
-  }
-
   .pillar-menu-close svg {
     transition: none;
   }

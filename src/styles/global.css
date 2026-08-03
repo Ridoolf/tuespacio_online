@@ -26,7 +26,7 @@ body {
 .container {
   width: 100%;
   max-width: var(--container-max);
-  margin: 0 auto;
+  margin-inline: auto;
   padding: 0 clamp(1rem, 2.5vw, 1.75rem);
 }
 
