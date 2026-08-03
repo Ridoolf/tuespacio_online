@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Send } from 'lucide-react';
 import { buildFormWhatsAppLink } from '../../utils/whatsapp';
 import Button from './Button';
-import './ContactForm.css';
 
 function ContactForm() {
   const [name, setName] = useState('');

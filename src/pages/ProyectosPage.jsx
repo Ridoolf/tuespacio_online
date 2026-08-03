@@ -1,50 +1,42 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import ProjectCard from '../components/ui/ProjectCard';
+import ProjectTimeline from '../components/ui/ProjectTimeline';
+import SectionHeader from '../components/ui/SectionHeader';
+import FaqAccordion from '../components/ui/FaqAccordion';
+import Button from '../components/ui/Button';
 import { projects } from '../config/projects';
-import { fadeIn } from '../config/motion';
+import { proyectosFaq } from '../config/proyectosFaq';
 import { buildPageTitle, usePageMeta } from '../hooks/usePageMeta';
-import './ProyectosPage.css';
 
 function ProyectosPage() {
-  usePageMeta({ title: buildPageTitle('Proyectos'), path: '/proyectos' });
-  const [featured, ...rest] = projects;
+  usePageMeta({
+    title: buildPageTitle('Proyectos'),
+    description:
+      'Proyectos reales con enfoque problema-solución. Recorré la línea de tiempo y abrí cada proyecto para ver el detalle.',
+    path: '/proyectos',
+  });
 
   return (
-    <div className="page page-canvas proyectos-page">
-      <section className="page-open proyectos-open" aria-labelledby="proyectos-title">
-        <div className="container">
-          <motion.div className="page-open-copy" {...fadeIn}>
-            <p className="page-kicker">Portfolio</p>
-            <h1 id="proyectos-title" className="display-title">
-              Proyectos <span className="accent">recientes</span>
-            </h1>
-            <p className="page-open-desc">
-              Sitios reales para clientes reales. Cada uno pensado para convertir visitas en
-              contactos.
-            </p>
-          </motion.div>
-
-          {featured && (
-            <motion.div className="proyectos-featured" {...fadeIn} transition={{ delay: 0.12 }}>
-              <ProjectCard project={featured} featured />
-            </motion.div>
-          )}
-        </div>
+    <main>
+      <section id="portfolio" aria-labelledby="proyectos-title">
+        <h1 id="proyectos-title">Proyectos recientes</h1>
+        <p>
+          Recorré la línea de tiempo y tocá un proyecto para ver el sitio o entender cómo lo
+          encaré.
+        </p>
+        <ProjectTimeline projects={projects} />
       </section>
 
-      {rest.length > 0 && (
-        <section className="page-band">
-          <div className="container">
-            <div className="proyectos-grid">
-              {rest.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-    </div>
+      <section aria-labelledby="proyectos-faq-title">
+        <SectionHeader
+          title="Preguntas frecuentes"
+          description="Lo que suelen preguntarme sobre el portfolio."
+          titleId="proyectos-faq-title"
+        />
+        <FaqAccordion items={proyectosFaq} />
+        <Button to="/contacto" variant="primary">
+          Escribime
+        </Button>
+      </section>
+    </main>
   );
 }
 

@@ -1,7 +1,39 @@
 let lenisInstance = null;
+let scrollLockCount = 0;
+let savedScrollY = 0;
+let savedBodyPosition = '';
+let savedBodyTop = '';
+let savedBodyWidth = '';
 
 export function setLenisInstance(lenis) {
   lenisInstance = lenis;
+}
+
+export function lockPageScroll() {
+  if (scrollLockCount === 0) {
+    savedScrollY = window.scrollY;
+    savedBodyPosition = document.body.style.position;
+    savedBodyTop = document.body.style.top;
+    savedBodyWidth = document.body.style.width;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.width = '100%';
+    lenisInstance?.stop();
+  }
+
+  scrollLockCount += 1;
+
+  return () => {
+    scrollLockCount = Math.max(0, scrollLockCount - 1);
+    if (scrollLockCount === 0) {
+      document.body.style.position = savedBodyPosition;
+      document.body.style.top = savedBodyTop;
+      document.body.style.width = savedBodyWidth;
+      window.scrollTo(0, savedScrollY);
+      lenisInstance?.start();
+    }
+  };
 }
 
 export function scrollToSection(id) {

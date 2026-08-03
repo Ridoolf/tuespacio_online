@@ -54,7 +54,7 @@ function PricingCard({ plan, variant = 'default', supportSectionId }) {
         href={whatsappLink}
         external
         variant={plan.featured ? 'primary' : 'outline'}
-        className="btn--full"
+        className={`btn--full${plan.featured ? ' btn--hover-black' : ''}`}
       >
         Elegir este plan
       </Button>

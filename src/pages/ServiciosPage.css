@@ -65,10 +65,6 @@
     gap: clamp(1.75rem, 3.5vh, 2.75rem);
   }
 
-  .servicios-intro .page-kicker {
-    margin-bottom: 0.4rem;
-  }
-
   .servicios-intro .display-title {
     font-size: clamp(2.15rem, 4.5vw, 3.5rem);
     line-height: 0.92;

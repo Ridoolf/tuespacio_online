@@ -30,7 +30,6 @@ function ServiciosPage() {
           <div className="servicios-intro-head">
             <span className="page-pillar servicios-intro-pillar" aria-hidden="true" />
             <motion.div className="servicios-intro-copy" {...fadeIn}>
-              <p className="page-kicker">Servicios</p>
               <h1 id="servicios-title" className="display-title">
                 Nuestros <span className="accent">servicios</span>
               </h1>
@@ -87,7 +86,7 @@ function ServiciosPage() {
           />
           <FaqAccordion items={serviciosFaq} />
           <motion.div className="servicios-faq-cta" {...revealProps(0.12)}>
-            <Button to="/contacto" variant="primary">
+            <Button to="/contacto" variant="primary" className="btn--hover-black">
               Escribime
             </Button>
           </motion.div>
