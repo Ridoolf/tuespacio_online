@@ -1,0 +1,130 @@
+.proyectos-intro {
+  position: relative;
+  padding-top: clamp(1.5rem, 3vh, 2rem);
+  padding-bottom: clamp(1.25rem, 2.5vh, 2rem);
+  overflow: hidden;
+}
+
+.proyectos-intro-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  min-height: 0;
+}
+
+.proyectos-intro-head {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-md);
+  flex-shrink: 0;
+}
+
+.proyectos-intro-copy {
+  max-width: 38rem;
+}
+
+.proyectos-intro-pillar {
+  align-self: stretch;
+  min-height: clamp(72px, 10vh, 120px);
+}
+
+.proyectos-showcase {
+  padding-bottom: clamp(2rem, 4vh, 3rem);
+}
+
+.proyectos-showcase-inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vh, 2rem);
+}
+
+.proyectos-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(0.5rem, 2vh, 1rem);
+}
+
+.proyectos-faq-cta {
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .proyectos-intro {
+    padding-top: clamp(3.75rem, 9vh, 6rem);
+    padding-bottom: clamp(1rem, 2vh, 1.5rem);
+  }
+
+  .proyectos-intro .display-title {
+    font-size: clamp(2.15rem, 4.5vw, 3.5rem);
+    line-height: 0.92;
+  }
+
+  .proyectos-intro .page-open-desc {
+    margin-top: 0.65rem;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    max-width: 42ch;
+  }
+
+  .proyectos-intro-pillar {
+    min-height: clamp(48px, 7vh, 72px);
+  }
+}
+
+@media (min-width: 768px) and (max-height: 820px) {
+  .proyectos-intro {
+    padding-top: clamp(2.75rem, 6vh, 4rem);
+    padding-bottom: clamp(1.25rem, 3vh, 2rem);
+  }
+
+  .proyectos-intro-inner {
+    gap: clamp(1.25rem, 2.5vh, 1.75rem);
+  }
+
+  .proyectos-intro .display-title {
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+  }
+
+  .proyectos-intro .page-open-desc {
+    font-size: 0.8125rem;
+    margin-top: 0.25rem;
+  }
+
+  .proyectos-intro-pillar {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .proyectos-intro {
+    padding-top: clamp(1rem, 2vh, 1.5rem);
+    padding-bottom: clamp(1rem, 2vh, 1.25rem);
+  }
+
+  .proyectos-intro-inner {
+    gap: var(--space-lg);
+  }
+
+  .proyectos-intro-head {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .proyectos-intro-pillar {
+    display: none;
+  }
+
+  .proyectos-intro .display-title {
+    font-size: clamp(2.25rem, 10vw, 3.25rem);
+  }
+
+  .proyectos-intro .page-open-desc {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proyectos-intro-pillar {
+    box-shadow: none;
+  }
+}

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { motion } from 'framer-motion';
 import ProjectDetailModal from './ProjectDetailModal';
 import { motionEase, revealViewport, staggerContainer } from '../../config/motion';
+import { cn } from '@/lib/utils';
+import './ProjectTimeline.css';
 
 const TIMELINE_ORDER = [
   'ron',
@@ -28,13 +30,21 @@ function orderProjectsForTimeline(projects) {
 }
 
 function TimelineThumb({ project }) {
+  const isLogoThumb = project.thumbFit === 'contain';
+
   return (
-    <span className="project-timeline-thumb" aria-hidden="true">
+    <span
+      className={cn('project-timeline-thumb', isLogoThumb && 'project-timeline-thumb--contain')}
+      aria-hidden="true"
+    >
       {project.image ? (
         <img
           src={project.image}
           alt=""
-          className="project-timeline-thumb-image"
+          className={cn(
+            'project-timeline-thumb-image',
+            isLogoThumb && 'project-timeline-thumb-image--contain',
+          )}
           loading="lazy"
           onError={(event) => {
             event.currentTarget.hidden = true;

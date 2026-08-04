@@ -25,7 +25,7 @@ export const serviciosFaq = [
     id: 'cuanto-tarda',
     question: '¿Cuánto tarda?',
     answer:
-      'Un sitio en una página suele estar listo en 2 a 3 semanas. El multipágina lleva entre 3 y 4. Los proyectos a medida dependen del alcance, pero siempre te doy un plazo concreto antes de empezar.',
+      'Cada web es distinta, así que no hay un plazo único para todos. Cuando charlemos, tenga claro qué hay que hacer y el material que me pases, ahí te confirmo cuánto me va a llevar la web. Como referencia general, suelen ser unas dos o tres semanas desde que arrancamos.',
   },
   {
     id: 'ventajas-multipagina',
@@ -49,6 +49,12 @@ export const serviciosFaq = [
     question: '¿Puedo pedir cambios después?',
     answer:
       'Sí. Durante el plan de acompañamiento podés pedir ajustes de textos, precios u horarios sin problema. Si querés páginas o secciones nuevas, eso se cotiza aparte.',
+  },
+  {
+    id: 'acompanamiento-obligatorio',
+    question: '¿El plan de acompañamiento es obligatorio?',
+    answer:
+      'Sí, los primeros 6 meses van incluidos. Google no empieza a mostrar una web nueva de un día para otro, suele llevar meses, y en ese arranque hay ajustes, dudas y cosas para pulir. El plan cubre ese período para que no quedes solo cuando la página recién sale online.',
   },
   {
     id: 'como-se-paga',

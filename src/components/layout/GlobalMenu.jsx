@@ -77,12 +77,12 @@ function GlobalMenu() {
       {visible && (
         <div
           key="global-menu"
-          className="fixed inset-0 z-[190]"
+          className="contents"
           role="presentation"
         >
           <motion.button
             type="button"
-            className="absolute inset-0 border-0 bg-[rgba(26,26,26,0.42)] backdrop-blur-md"
+            className="fixed inset-0 z-[190] border-0 bg-[rgba(26,26,26,0.42)] backdrop-blur-md"
             aria-label="Cerrar menú"
             variants={reducedMotion ? undefined : overlayVariants}
             initial={reducedMotion ? false : 'hidden'}
@@ -96,11 +96,11 @@ function GlobalMenu() {
             aria-modal="true"
             aria-label="Menú de navegación"
             className={cn(
-              'fixed top-0 right-0 z-[1] flex h-[100dvh] flex-col',
+              'fixed top-0 right-0 z-[210] flex h-[100dvh] flex-col',
               'w-[min(100%,420px)] md:w-[25vw] md:min-w-[280px] md:max-w-[360px]',
               'border-l border-brand-border bg-brand-bg',
               'bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(232,97,45,0.08),transparent_65%)]',
-              'px-[var(--header-gutter)] pb-8 pt-[calc(var(--header-height)+0.75rem)]',
+              'px-[var(--header-gutter)] pb-8',
               'shadow-[-20px_0_48px_rgba(26,26,26,0.12)]',
               isClosing && 'pointer-events-none',
             )}
@@ -108,7 +108,7 @@ function GlobalMenu() {
             initial={reducedMotion ? false : 'hidden'}
             animate={reducedMotion ? false : motionState}
           >
-            <div className="mb-6 flex items-center justify-between border-b border-brand-border pb-3">
+            <div className="relative z-[1] mb-6 flex min-h-[var(--header-height)] shrink-0 items-center justify-between border-b border-brand-border">
               <span className="font-body text-base font-bold lowercase tracking-[-0.02em] text-brand-muted">
                 menú
               </span>

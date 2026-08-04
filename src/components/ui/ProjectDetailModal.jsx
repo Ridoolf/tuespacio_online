@@ -6,6 +6,7 @@ import ProjectCaseStudyContent from './ProjectCaseStudyContent';
 import Button from './Button';
 import { motionEase } from '../../config/motion';
 import { lockPageScroll } from '../../utils/scrollToSection';
+import { projectHasLiveSite } from '../../config/projects';
 
 function ProjectDetailModal({ project, isOpen, onClose }) {
   const modalId = useId();
@@ -96,9 +97,11 @@ function ProjectDetailModal({ project, isOpen, onClose }) {
                   <Button type="button" variant="outline" onClick={onClose}>
                     Cerrar
                   </Button>
-                  <Button href={project.url} external variant="primary" iconRight={ArrowUpRight}>
-                    Visitar sitio
-                  </Button>
+                  {projectHasLiveSite(project) && (
+                    <Button href={project.url} external variant="primary" iconRight={ArrowUpRight}>
+                      Visitar sitio
+                    </Button>
+                  )}
                   <Button to="/contacto" variant="ghost">
                     Me interesa algo así
                   </Button>

@@ -47,7 +47,14 @@
   background: transparent;
   color: var(--color-text);
   cursor: pointer;
-  transition: color var(--transition);
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition:
+    color var(--transition),
+    opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1) 0.06s,
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1) 0.06s,
+    visibility 0s linear 0s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -69,8 +76,15 @@
 }
 
 .header-menu-toggle--hidden {
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transform: translateX(8px);
+  transition:
+    color var(--transition),
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0s linear 0.22s;
 }
 
 .header-menu-label {
@@ -151,6 +165,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .header-menu-toggle,
+  .header-menu-toggle--hidden {
+    transform: none;
+    transition: color var(--transition) !important;
+  }
+
   .header-menu-icon span {
     transition: none;
     animation: none !important;

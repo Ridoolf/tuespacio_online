@@ -15,7 +15,7 @@ export const proyectosFaq = [
     id: 'ver-en-vivo',
     question: '¿Puedo ver el sitio en vivo antes de contratar?',
     answer:
-      'Sí. Todos los proyectos del portfolio están online y podés navegarlos. Son sitios reales de clientes reales, no maquetas.',
+      'Los que están publicados podés navegarlos en vivo desde el portfolio. Otros son proyectos en curso o sistemas privados de clientes: ahí mostramos capturas y el enfoque del trabajo, sin exponer datos sensibles.',
   },
   {
     id: 'mi-rubro',
