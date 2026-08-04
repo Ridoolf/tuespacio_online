@@ -21,8 +21,8 @@ export const projects = [
       'Presencia online para la Dra. Fanny Ruth y un panel interno para el día a día del consultorio odontológico.',
     problem:
       'Abría su consultorio y necesitaba llegar a pacientes nuevos online, pero también ordenar turnos, fichas y cobros sin depender de planillas sueltas.',
-    image: '/projects/fannyruth.jpeg',
-    thumbFit: 'contain',
+    url: 'https://fannyruth.vercel.app/',
+    image: '/projects/fannyruth.png',
     initials: 'FR',
     deliverables: [
       {

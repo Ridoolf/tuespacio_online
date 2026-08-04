@@ -24,7 +24,7 @@
   --hero-shape-lift-scale: 1.28;
   --hero-shape-lift-z: 72px;
   --hero-cta-offset-y: min(20vh, 168px);
-  --hero-focus-duration: 1.15s;
+  --hero-focus-duration: 0.92s;
   --hero-focus-ease: cubic-bezier(0.33, 0, 0.15, 1);
   --hero-shape-float-duration: 11s;
   --hero-shape-float-ease: linear;
@@ -292,8 +292,8 @@
   align-self: center;
   transform: translateY(var(--hero-pillar-shift));
   transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.35s ease,
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease,
     z-index 0s;
 }
 
@@ -319,7 +319,7 @@
 .home-hero--menu-active .home-hero-cta-layer {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.28s ease;
 }
 
 .home-hero-bar {

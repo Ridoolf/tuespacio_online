@@ -1,13 +1,26 @@
 import gsap from 'gsap';
 
 export const MENU_TIMING = {
-  forward: 400,
-  overlay: 0.55,
-  morph: 0.9,
-  panelEnter: 0.65,
-  panelExit: 0.45,
-  contentIn: 0.5,
-  contentOut: 0.22,
+  forward: 320,
+  overlay: 0.44,
+  morph: 0.72,
+  panelEnter: 0.52,
+  panelExit: 0.36,
+  contentIn: 0.4,
+  contentOut: 0.18,
+};
+
+export const MENU_CONTENT_TIMING = {
+  head: 0.36,
+  navIndex: 0.32,
+  navText: 0.52,
+  navOffsetStart: 0.08,
+  navOffsetStep: 0.06,
+  navTextDelay: 0.04,
+  sideStart: 0.22,
+  sideDuration: 0.36,
+  sideStagger: 0.055,
+  hideStagger: 0.02,
 };
 
 const resolvers = {};
@@ -164,22 +177,26 @@ export function revealMenuContent(containerEl, reducedMotion = false) {
 
   if (head) {
     gsap.set(head, { opacity: 0, y: -18 });
-    tl.to(head, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0);
+    tl.to(head, { opacity: 1, y: 0, duration: MENU_CONTENT_TIMING.head, ease: 'power3.out' }, 0);
   }
 
   navItems.forEach((item, index) => {
     const indexEl = item.querySelector('.pillar-menu-link-index');
     const textWrap = item.querySelector('.pillar-menu-link-text-wrap');
-    const offset = 0.1 + index * 0.08;
+    const offset = MENU_CONTENT_TIMING.navOffsetStart + index * MENU_CONTENT_TIMING.navOffsetStep;
 
     if (indexEl) {
       gsap.set(indexEl, { opacity: 0, x: -10 });
-      tl.to(indexEl, { opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }, offset);
+      tl.to(indexEl, { opacity: 1, x: 0, duration: MENU_CONTENT_TIMING.navIndex, ease: 'power3.out' }, offset);
     }
 
     if (textWrap) {
       gsap.set(textWrap, { clipPath: 'inset(100% 0 0 0)' });
-      tl.to(textWrap, { clipPath: 'inset(0% 0 0 0)', duration: 0.65, ease: 'power4.out' }, offset + 0.04);
+      tl.to(
+        textWrap,
+        { clipPath: 'inset(0% 0 0 0)', duration: MENU_CONTENT_TIMING.navText, ease: 'power4.out' },
+        offset + MENU_CONTENT_TIMING.navTextDelay,
+      );
     }
   });
 
@@ -190,11 +207,11 @@ export function revealMenuContent(containerEl, reducedMotion = false) {
       {
         opacity: 1,
         y: 0,
-        duration: 0.45,
-        stagger: 0.07,
+        duration: MENU_CONTENT_TIMING.sideDuration,
+        stagger: MENU_CONTENT_TIMING.sideStagger,
         ease: 'power2.out',
       },
-      0.28,
+      MENU_CONTENT_TIMING.sideStart,
     );
   }
 
@@ -218,7 +235,7 @@ export function hideMenuContent(containerEl, reducedMotion = false) {
     opacity: 0,
     y: 10,
     duration: MENU_TIMING.contentOut,
-    stagger: 0.025,
+    stagger: MENU_CONTENT_TIMING.hideStagger,
     ease: 'power2.in',
   });
 
